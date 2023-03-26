@@ -4,7 +4,7 @@ const Article = require("../ArticleSchema");
 const auth=require("../authvalid");
 const multer=require("multer");
 const fs = require("fs")
-
+require('dotenv').config({path:'../.env'})
 const MIME_TYPE_MAP={
     "image/png":"png",
     "image/jpeg":"jpg",
@@ -13,7 +13,7 @@ const MIME_TYPE_MAP={
 
 const storage=multer.diskStorage({
     destination:(req,res,cb)=>{
-        cb(null,"Backend/image")
+        cb(null,process.env.IMAGE_PATH)
     },
     filename:(req,file,cb)=>{
         const name=file.originalname.toLowerCase().split(' ').join("-")
@@ -45,7 +45,7 @@ router.patch("/update/:id",auth,multer({storage:storage}).single("image"),(req,r
     author=req.data.name,
     creatorid=req.data.id,
     time=req.body.time,
-    
+
     id=req.params.id
 
     Article.findOne({_id:id}).then(data=>{
@@ -54,7 +54,7 @@ router.patch("/update/:id",auth,multer({storage:storage}).single("image"),(req,r
             image=url+"/image/"+req.file.filename
         }
         if(data.image!==image){
-            
+
             Article.updateOne({_id:id},{image:image}).then(()=>{
                 path=data.image;
                 fs.unlinkSync(path.replace('http://localhost','Backend'))

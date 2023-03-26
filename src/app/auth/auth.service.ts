@@ -17,14 +17,14 @@ export class AuthService{
     constructor(private http:HttpClient,private router:Router){}
 
     Signup(data:User){
-        this.http.post("http://localhost/api/user/signup",data).subscribe(()=>{
+        this.http.post("http://localhost:4005/api/user/signup",data).subscribe(()=>{
             console.log("submitted!")
         })
     }
 
     Login(data:User){
-        this.http.post<{token:string,name:string}>("http://localhost/api/user/login",data).subscribe(data=>{
-            
+        this.http.post<{token:string,name:string}>("http://localhost:4005/api/user/login",data).subscribe(data=>{
+
             if(data.token){
                 this.token.next(data.token);
                 this.islogin=true;

@@ -5,6 +5,7 @@ const path=require("path")
 const bodyParser = require("body-parser");
 const user=require('./routes/User');
 const article=require("./routes/Article")
+require('dotenv').config()
 
 app.use(bodyParser.json());
 
@@ -24,9 +25,15 @@ app.use((req, res, next) => {
   next();
 });
 
-mongoose.connect("mongodb://localhost:27017/sahil",{ useNewUrlParser: true , useUnifiedTopology: true }).then(() => {
+mongoose.connect(process.env.MONGO_DB_URI_D,{ user:process.env.MONGO_USER,pass:process.env.MONGO_PWD,useNewUrlParser: true , useUnifiedTopology: true }).then(() => {
   console.log("Connected successfully!");
 });
+
+// mongoose.connect("mongodb+srv://sahil:HTuU7ciTowPk08cs@cluster0.0hdw3.mongodb.net/Articlewebsite?retryWrites=true&w=majority").then(() => {
+//   console.log("Connected successfully!");
+// })
+
+// HTuU7ciTowPk08cs
 
 
 app.use('/api/user',user);
