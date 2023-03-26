@@ -27,7 +27,7 @@ app.use((req, res, next) => {
 
 mongoose.connect(process.env.MONGO_DB_URI_D,{ user:process.env.MONGO_USER,pass:process.env.MONGO_PWD,useNewUrlParser: true , useUnifiedTopology: true }).then(() => {
   console.log("Connected successfully!");
-});
+})
 
 // mongoose.connect("mongodb+srv://sahil:HTuU7ciTowPk08cs@cluster0.0hdw3.mongodb.net/Articlewebsite?retryWrites=true&w=majority").then(() => {
 //   console.log("Connected successfully!");
